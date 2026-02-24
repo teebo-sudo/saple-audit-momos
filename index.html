@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media Audit — MOMOS BERLIN | by Saple</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== CSS VARIABLES — DARK (default) ===== */
+    :root,
+    [data-theme="dark"] {
+      --bg: #0B0B0F;
+      --surface: #12121A;
+      --surface-light: #1D1D2B;
+      --text: #FFFFFF;
+      --text-secondary: #B9B9C6;
+      --text-muted: #8E8E9E;
+      --border: #242433;
+      --border-card: rgba(255,255,255,0.06);
+      --border-card-strong: rgba(255,255,255,0.04);
+      --nav-bg: rgba(11,11,15,0.85);
+      --nav-border: rgba(255,255,255,0.15);
+      --footer-border: rgba(255,255,255,0.06);
+      --primary: #8614FF;
+      --primary-light: #AD5FFF;
+      --primary-dark: #660FC2;
+      --mint: #2EE59D;
+      --dark: #0B0B0F;
+      --red: #FF3B30;
+      --amber: #FFB020;
+      --green: #2EE59D;
+      --blue: #2D7DFF;
+    }
+
+    /* ===== CSS VARIABLES — LIGHT ===== */
+    [data-theme="light"] {
+      --bg: #FFFFFF;
+      --surface: #F5F5F7;
+      --surface-light: #EBEBEF;
+      --text: #0B0B0F;
+      --text-secondary: #6B6B78;
+      --text-muted: #8E8E9E;
+      --border: #D9D9E0;
+      --border-card: rgba(0,0,0,0.06);
+      --border-card-strong: rgba(0,0,0,0.04);
+      --nav-bg: rgba(255,255,255,0.85);
+      --nav-border: rgba(11,11,15,0.15);
+      --footer-border: rgba(0,0,0,0.06);
+    }
+
+    /* ===== RESET ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+    html::-webkit-scrollbar { display: none; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    .brand-text { font-family: 'Space Grotesk', sans-serif; }
+    .slush-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 0.85;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 16px 24px;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 2px solid var(--nav-border);
+      border-radius: 999px;
+      padding: 8px 12px 8px 20px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .nav-logo-link {
+      display: flex; align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-logo-img {
+      height: 28px; width: auto;
+      display: block;
+    }
+    .nav-logo-dark { display: block; }
+    .nav-logo-light { display: none; }
+    [data-theme="light"] .nav-logo-dark { display: none; }
+    [data-theme="light"] .nav-logo-light { display: block; }
+
+    .nav-right {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-cta {
+      background: var(--mint); color: var(--dark);
+      border: 2px solid var(--dark);
+      border-radius: 999px; padding: 8px 20px;
+      font-size: 11px; font-weight: 900; font-style: italic;
+      text-transform: uppercase; letter-spacing: -0.02em;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 0 rgba(11,11,15,0.15);
+      white-space: nowrap;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 0 rgba(11,11,15,0.15); }
+
+    .nav-circle-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--nav-border);
+      background: transparent;
+      color: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 11px; font-weight: 800;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .nav-circle-btn:hover {
+      background: rgba(134,20,255,0.15);
+      border-color: var(--primary);
+    }
+    .nav-circle-btn svg { width: 16px; height: 16px; }
+
+    /* ===== HAMBURGER / MOBILE MENU ===== */
+    .hamburger {
+      display: none;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--nav-border);
+      background: transparent;
+      color: var(--text);
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .hamburger svg { width: 18px; height: 18px; }
+    .hamburger:hover { background: rgba(134,20,255,0.15); border-color: var(--primary); }
+
+    .mobile-overlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 32px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-overlay.active { opacity: 1; pointer-events: all; }
+    .mobile-overlay-close {
+      position: absolute; top: 24px; right: 24px;
+      width: 40px; height: 40px;
+      border-radius: 50%; border: 2px solid var(--nav-border);
+      background: transparent; color: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 20px;
+    }
+    .mobile-overlay a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-style: italic; text-transform: uppercase;
+      font-size: 24px; color: var(--text); text-decoration: none;
+      letter-spacing: -0.03em;
+      transition: color 0.2s;
+    }
+    .mobile-overlay a:hover { color: var(--mint); }
+    .mobile-overlay .mobile-cta {
+      background: var(--mint); color: var(--dark);
+      border: 2px solid var(--dark); border-radius: 999px;
+      padding: 14px 32px; font-size: 14px;
+      font-weight: 900; font-style: italic; text-transform: uppercase;
+      box-shadow: 0 4px 0 rgba(11,11,15,0.15);
+    }
+    .mobile-overlay-controls {
+      display: flex; gap: 12px; margin-top: 16px;
+    }
+    .mobile-overlay-controls .nav-circle-btn {
+      width: 44px; height: 44px; font-size: 13px;
+    }
+    .mobile-overlay-controls .nav-circle-btn svg { width: 20px; height: 20px; }
+
+    @media (max-width: 768px) {
+      .nav-cta, .nav-right .nav-circle-btn { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(134,20,255,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid rgba(134,20,255,0.3);
+      border-radius: 999px; padding: 6px 16px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-muted);
+      margin-bottom: 32px;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+    .hero-badge span { color: var(--primary-light); }
+    .hero-headline {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-style: italic; text-transform: uppercase;
+      font-size: clamp(48px, 10vw, 140px);
+      letter-spacing: -0.05em; line-height: 0.85;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .hero-handle {
+      font-size: 18px; color: var(--mint); font-weight: 600;
+      margin-bottom: 8px; position: relative;
+    }
+    .hero-desc {
+      font-size: 16px; color: var(--text-muted);
+      max-width: 520px; margin: 0 auto 32px;
+      position: relative;
+    }
+    .hero-tags {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      position: relative;
+    }
+    .hero-tag {
+      background: rgba(134,20,255,0.15); border: 1px solid rgba(134,20,255,0.3);
+      border-radius: 999px; padding: 8px 18px;
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--primary-light);
+    }
+    .hero-meta {
+      margin-top: 40px; display: flex; gap: 8px; align-items: center;
+      font-size: 12px; color: var(--text-muted);
+      position: relative;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      max-width: 1000px; margin: 0 auto;
+      padding: 80px 24px;
+    }
+    .section-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-style: italic;
+      font-size: 14px; color: var(--mint);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-style: italic; text-transform: uppercase;
+      font-size: clamp(28px, 5vw, 52px);
+      letter-spacing: -0.03em; line-height: 1;
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: 15px; color: var(--text-muted);
+      margin-bottom: 48px;
+    }
+
+    /* ===== STATS GRID ===== */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px; margin-bottom: 48px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 2px solid var(--border-card);
+      border-radius: 20px; padding: 24px;
+      text-align: center;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-style: italic;
+      font-size: 36px; letter-spacing: -0.03em;
+    }
+    .stat-value.green { color: var(--green); }
+    .stat-value.red { color: var(--red); }
+    .stat-value.amber { color: var(--amber); }
+    .stat-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .stat-note {
+      font-size: 11px; font-weight: 600;
+      margin-top: 4px;
+    }
+    .stat-note.green { color: var(--green); }
+    .stat-note.red { color: var(--red); }
+    .stat-note.amber { color: var(--amber); }
+
+    /* ===== SCORE BARS ===== */
+    .scores-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; text-transform: uppercase;
+      font-size: 16px; margin-bottom: 24px; color: var(--text);
+    }
+    .scores { display: flex; flex-direction: column; gap: 20px; margin-bottom: 48px; }
+    .score-row {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .score-label {
+      font-size: 14px; font-weight: 600; color: var(--text-secondary);
+      min-width: 200px;
+    }
+    .score-track {
+      flex: 1; height: 10px; background: var(--surface-light);
+      border-radius: 999px; overflow: hidden;
+      transition: background 0.3s ease;
+    }
+    .score-fill {
+      height: 100%; border-radius: 999px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .score-fill.green { background: linear-gradient(90deg, var(--mint), var(--green)); }
+    .score-fill.amber { background: linear-gradient(90deg, var(--amber), #FFD94A); }
+    .score-fill.red { background: linear-gradient(90deg, var(--red), #FF6B6B); }
+    .score-val {
+      font-size: 14px; font-weight: 800; color: var(--text);
+      min-width: 40px; text-align: right;
+    }
+
+    /* ===== INSIGHT BOX ===== */
+    .insight-box {
+      background: var(--surface);
+      border-left: 4px solid var(--red);
+      border-radius: 12px; padding: 24px 28px;
+      margin-bottom: 48px;
+      transition: background 0.3s ease;
+    }
+    .insight-box.amber-border { border-left-color: var(--amber); }
+    .insight-box.green-border { border-left-color: var(--green); }
+    .insight-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 16px; text-transform: uppercase;
+      color: var(--red); margin-bottom: 8px;
+    }
+    .insight-box.amber-border .insight-title { color: var(--amber); }
+    .insight-box.green-border .insight-title { color: var(--green); }
+    .insight-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ===== PROBLEM CARDS ===== */
+    .problems { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
+    .problem-card {
+      background: var(--surface);
+      border: 2px solid var(--border-card-strong);
+      border-left: 4px solid var(--amber);
+      border-radius: 16px; padding: 24px 28px;
+      display: flex; align-items: flex-start; gap: 20px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .problem-card.high { border-left-color: var(--red); }
+    .problem-card.medium { border-left-color: var(--amber); }
+    .problem-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-style: italic;
+      font-size: 28px; color: var(--red);
+      line-height: 1; min-width: 36px;
+    }
+    .problem-card.medium .problem-num { color: var(--amber); }
+    .problem-content { flex: 1; }
+    .problem-title-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 8px; gap: 12px; flex-wrap: wrap;
+    }
+    .problem-title {
+      font-size: 16px; font-weight: 700; color: var(--text);
+    }
+    .impact-badge {
+      background: rgba(255,59,48,0.15); color: var(--red);
+      border-radius: 999px; padding: 4px 12px;
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.05em; white-space: nowrap;
+    }
+    .problem-card.medium .impact-badge {
+      background: rgba(255,176,32,0.15); color: var(--amber);
+    }
+    .problem-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ===== RESULT BOX ===== */
+    .result-box {
+      background: var(--surface);
+      border: 2px solid rgba(134,20,255,0.3);
+      border-radius: 20px; padding: 32px;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+    .result-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; text-transform: uppercase;
+      font-size: 14px; color: var(--red);
+      margin-bottom: 8px;
+    }
+    .result-text {
+      font-size: 18px; font-weight: 700; color: var(--text);
+    }
+
+    /* ===== FIX SECTION ===== */
+    .fix-category { margin-bottom: 40px; }
+    .fix-cat-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; text-transform: uppercase;
+      font-size: 14px; color: var(--mint);
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .fix-cat-title::before {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--mint);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .fix-items { display: flex; flex-direction: column; gap: 12px; }
+    .fix-item {
+      background: var(--surface);
+      border: 1px solid var(--border-card-strong);
+      border-radius: 14px; padding: 20px 24px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .fix-item-title {
+      font-size: 14px; font-weight: 700; color: var(--text);
+      margin-bottom: 4px;
+    }
+    .fix-item-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      background: var(--mint);
+      border-radius: 32px; padding: 60px 40px;
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto 80px;
+      border: 4px solid var(--dark);
+      box-shadow: 0 12px 0 rgba(11,11,15,0.85);
+      overflow: hidden;
+    }
+    .cta-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-style: italic; text-transform: uppercase;
+      font-size: clamp(20px, 4vw, 42px);
+      letter-spacing: -0.03em; line-height: 1.1;
+      color: var(--dark); margin-bottom: 12px;
+      word-wrap: break-word;
+    }
+    .cta-sub {
+      font-size: 16px; color: rgba(11,11,15,0.6);
+      font-weight: 600; margin-bottom: 32px;
+      max-width: 560px; margin-left: auto; margin-right: auto;
+    }
+    .cta-btn {
+      display: inline-flex; align-items: center;
+      background: var(--dark); color: white;
+      border: 3px solid var(--dark); border-radius: 999px;
+      padding: 14px 36px; font-size: 14px;
+      font-weight: 900; font-style: italic; text-transform: uppercase;
+      letter-spacing: -0.02em; text-decoration: none;
+      box-shadow: 0 6px 0 rgba(11,11,15,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 9px 0 rgba(11,11,15,0.3);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 40px 24px 60px;
+      border-top: 1px solid var(--footer-border);
+      transition: border-color 0.3s ease;
+    }
+    .footer-logo-img {
+      height: 32px; width: auto;
+      margin-bottom: 12px;
+    }
+    .footer-logo-dark { display: block; }
+    .footer-logo-light { display: none; }
+    [data-theme="light"] .footer-logo-dark { display: none; }
+    [data-theme="light"] .footer-logo-light { display: block; }
+    .footer-note {
+      font-size: 12px; color: var(--text-muted);
+    }
+
+    /* ===== PURPLE DIVIDER ===== */
+    .divider {
+      height: 2px; max-width: 1000px; margin: 0 auto;
+      background: linear-gradient(90deg, transparent, rgba(134,20,255,0.3), transparent);
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-target {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-target.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-target.d1 { transition-delay: 0.1s; }
+    .fade-target.d2 { transition-delay: 0.2s; }
+    .fade-target.d3 { transition-delay: 0.3s; }
+    .fade-target.d4 { transition-delay: 0.4s; }
+
+    /* Hero elements animate immediately on load via keyframes */
+    .hero .fade-target {
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .hero .fade-target.d1 { animation-delay: 0.15s; }
+    .hero .fade-target.d2 { animation-delay: 0.3s; }
+    .hero .fade-target.d3 { animation-delay: 0.45s; }
+    .hero .fade-target.d4 { animation-delay: 0.6s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .score-label { min-width: 120px; font-size: 12px; }
+      .problem-card { flex-direction: column; gap: 12px; }
+      .problem-num { min-width: auto; }
+      .cta-section { margin-left: 16px; margin-right: 16px; padding: 40px 24px; border-radius: 24px; }
+      .hero-title { font-size: clamp(40px, 12vw, 100px); }
+      .section { padding: 60px 20px; }
+      .nav { padding: 12px 16px; }
+      .nav-inner { padding: 6px 12px 6px 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .stat-value { font-size: 28px; }
+      .stat-card { padding: 16px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="https://www.saple.de" class="nav-logo-link" aria-label="Saple Homepage">
+        <img src="./assets/saple-logo-white.svg" alt="Saple" class="nav-logo-img nav-logo-dark">
+        <img src="./assets/saple-logo-black.svg" alt="Saple" class="nav-logo-img nav-logo-light">
+      </a>
+      <div class="nav-right">
+        <a href="https://www.saple.de" class="nav-cta">Kostenloses Erstgespraech</a>
+
+        <!-- Language Toggle -->
+        <button class="nav-circle-btn" id="langToggle" aria-label="Sprache wechseln">
+          <span id="langLabel">DE</span>
+        </button>
+
+        <!-- Dark/Light Toggle -->
+        <button class="nav-circle-btn" id="themeToggle" aria-label="Theme wechseln">
+          <!-- Sun icon (shown in dark mode) -->
+          <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5M12 19.5V21M4.22 4.22l1.06 1.06M17.72 17.72l1.06 1.06M3 12h1.5M19.5 12H21M4.22 19.78l1.06-1.06M17.72 6.28l1.06-1.06M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z"/>
+          </svg>
+          <!-- Moon icon (shown in light mode) -->
+          <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="display:none;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/>
+          </svg>
+        </button>
+
+        <!-- Hamburger (mobile only) -->
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE OVERLAY ===== -->
+  <div class="mobile-overlay" id="mobileOverlay">
+    <button class="mobile-overlay-close" id="mobileClose" aria-label="Close menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <a href="https://www.saple.de" class="mobile-cta">Kostenloses Erstgespraech</a>
+    <div class="mobile-overlay-controls">
+      <button class="nav-circle-btn" id="langToggleMobile" aria-label="Sprache wechseln">
+        <span id="langLabelMobile">DE</span>
+      </button>
+      <button class="nav-circle-btn" id="themeToggleMobile" aria-label="Theme wechseln">
+        <svg id="iconSunMobile" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5M12 19.5V21M4.22 4.22l1.06 1.06M17.72 17.72l1.06 1.06M3 12h1.5M19.5 12H21M4.22 19.78l1.06-1.06M17.72 6.28l1.06-1.06M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z"/>
+        </svg>
+        <svg id="iconMoonMobile" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="display:none;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-badge fade-target">
+      SOCIAL MEDIA AUDIT <span>//</span> <span>INSTAGRAM</span>
+    </div>
+    <p class="hero-headline fade-target d1">Ihre kostenlose Instagram Account Analyse</p>
+    <h1 class="hero-title slush-text fade-target d1">MOMOS BERLIN</h1>
+    <p class="hero-handle fade-target d2">@momosberlin</p>
+    <p class="hero-desc fade-target d2">Organic Veggie Dumplings // Chausseestrasse, Berlin-Mitte</p>
+    <div class="hero-tags fade-target d3">
+      <span class="hero-tag">Kostenlose Analyse</span>
+      <span class="hero-tag">Februar 2026</span>
+      <span class="hero-tag">Berlin</span>
+    </div>
+    <div class="hero-meta fade-target d4">
+      Erstellt von <strong style="color:var(--primary-light); margin-left:4px;">Saple</strong>
+      <span style="margin: 0 6px; opacity:0.3;">|</span> Vertraulich
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== 01 ACCOUNT SNAPSHOT ===== -->
+  <section class="section" id="snapshot">
+    <div class="section-num fade-target">01</div>
+    <h2 class="section-title fade-target">Account Snapshot</h2>
+    <p class="section-sub fade-target">Stand Februar 2026 // Oeffentlich verfuegbare Daten</p>
+
+    <div class="stats-grid fade-target">
+      <div class="stat-card">
+        <div class="stat-value amber">6.649</div>
+        <div class="stat-label">Follower</div>
+        <div class="stat-note amber">Stagniert</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value amber">358</div>
+        <div class="stat-label">Following</div>
+        <div class="stat-note amber">Ratio verbessern</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value red">89</div>
+        <div class="stat-label">Beitraege</div>
+        <div class="stat-note red">Katastrophal wenig</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value red">~1.0%</div>
+        <div class="stat-label">Engagement</div>
+        <div class="stat-note red">Unter Benchmark</div>
+      </div>
+    </div>
+
+    <h3 class="scores-title fade-target">Performance Scores</h3>
+
+    <div class="scores fade-target" id="scoreSection">
+      <div class="score-row">
+        <span class="score-label">Profil & Bio</span>
+        <div class="score-track"><div class="score-fill amber" data-width="50%"></div></div>
+        <span class="score-val">5/10</span>
+      </div>
+      <div class="score-row">
+        <span class="score-label">Content-Qualitaet</span>
+        <div class="score-track"><div class="score-fill red" data-width="40%"></div></div>
+        <span class="score-val">4/10</span>
+      </div>
+      <div class="score-row">
+        <span class="score-label">Reels-Strategie</span>
+        <div class="score-track"><div class="score-fill red" data-width="20%"></div></div>
+        <span class="score-val">2/10</span>
+      </div>
+      <div class="score-row">
+        <span class="score-label">Community & Social Proof</span>
+        <div class="score-track"><div class="score-fill red" data-width="30%"></div></div>
+        <span class="score-val">3/10</span>
+      </div>
+      <div class="score-row">
+        <span class="score-label">Conversion-Funnel</span>
+        <div class="score-track"><div class="score-fill red" data-width="30%"></div></div>
+        <span class="score-val">3/10</span>
+      </div>
+      <div class="score-row">
+        <span class="score-label">Lokale Positionierung</span>
+        <div class="score-track"><div class="score-fill red" data-width="40%"></div></div>
+        <span class="score-val">4/10</span>
+      </div>
+    </div>
+
+    <div class="insight-box fade-target">
+      <div class="insight-title">13 Jahre, 89 Posts: Berlins bestgehuetetes Geheimnis</div>
+      <div class="insight-text">Seit 2013 serviert momos handgemachte Bio-Dumplings in Mitte. 4.4 Google-Sterne, TripAdvisor #107 von 7.026 Restaurants. Aber nur 89 Instagram-Posts in 13 Jahren. Das perfekte Produkt fuer Reels -- komplett ungenutzt.</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== 02 WAS LAEUFT SCHIEF? ===== -->
+  <section class="section" id="problems">
+    <div class="section-num fade-target">02</div>
+    <h2 class="section-title fade-target">Was laeuft schief?</h2>
+    <p class="section-sub fade-target">Kritische Schwachstellen, die Reichweite & Buchungen kosten</p>
+
+    <div class="problems">
+      <div class="problem-card high fade-target">
+        <div class="problem-num">01</div>
+        <div class="problem-content">
+          <div class="problem-title-row">
+            <span class="problem-title">89 Posts in 13 Jahren</span>
+            <span class="impact-badge">Impact: Hoch</span>
+          </div>
+          <p class="problem-desc">Etwa 1 Post alle 2 Monate. Der Algorithmus bestraft inaktive Accounts. Fuer ein Food-Business sind 3-5 Posts pro Woche Standard.</p>
+        </div>
+      </div>
+      <div class="problem-card high fade-target">
+        <div class="problem-num">02</div>
+        <div class="problem-content">
+          <div class="problem-title-row">
+            <span class="problem-title">Kein Reels-Konzept</span>
+            <span class="impact-badge">Impact: Hoch</span>
+          </div>
+          <p class="problem-desc">Dumpling-Herstellung ist visuell und ASMR-tauglich. Handfalten, Dampf, Brutzeln -- perfekter Reels-Content, komplett ungenutzt.</p>
+        </div>
+      </div>
+      <div class="problem-card high fade-target">
+        <div class="problem-num">03</div>
+        <div class="problem-content">
+          <div class="problem-title-row">
+            <span class="problem-title">Veraltete Bio-Informationen</span>
+            <span class="impact-badge">Impact: Hoch</span>
+          </div>
+          <p class="problem-desc">Oeffnungszeiten in der Bio stimmen nicht. Mi-Do geschlossen, aber Bio sagt Mo-Sa. Gaeste stehen vor verschlossener Tuer.</p>
+        </div>
+      </div>
+      <div class="problem-card medium fade-target">
+        <div class="problem-num">04</div>
+        <div class="problem-content">
+          <div class="problem-title-row">
+            <span class="problem-title">Social Proof unsichtbar</span>
+            <span class="impact-badge">Impact: Mittel</span>
+          </div>
+          <p class="problem-desc">1.625 Google-Reviews bei 4.4 Sternen, TripAdvisor #107 von 7.026, Top10Berlin #5. Nichts davon auf Instagram.</p>
+        </div>
+      </div>
+      <div class="problem-card medium fade-target">
+        <div class="problem-num">05</div>
+        <div class="problem-content">
+          <div class="problem-title-row">
+            <span class="problem-title">Kein Conversion-Funnel</span>
+            <span class="impact-badge">Impact: Mittel</span>
+          </div>
+          <p class="problem-desc">Kein Bestell-Link in Bio. Obwohl auf Wolt, Uber Eats und Lieferando -- kein Weg von Instagram zur Bestellung.</p>
+        </div>
+      </div>
+      <div class="problem-card medium fade-target">
+        <div class="problem-num">06</div>
+        <div class="problem-content">
+          <div class="problem-title-row">
+            <span class="problem-title">Lokale Positionierung verschenkt</span>
+            <span class="impact-badge">Impact: Mittel</span>
+          </div>
+          <p class="problem-desc">Naehe Naturkundemuseum in Mitte, Tourist-Hotspot. Keine Geo-Tags, keine lokalen Hashtags, keine Discovery-Strategie.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-box fade-target">
+      <div class="result-label">Ergebnis</div>
+      <div class="result-text">Das perfekte Reels-Produkt mit null Reels-Strategie. Tausende potenzielle Kunden laufen taeglich am Laden vorbei -- ohne je den Instagram-Account zu sehen.</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== 03 FIX IN 7 TAGEN ===== -->
+  <section class="section" id="fix">
+    <div class="section-num fade-target">03</div>
+    <h2 class="section-title fade-target">Fix in 7 Tagen</h2>
+    <p class="section-sub fade-target">Konkrete Massnahmen mit direktem Impact auf Reichweite & Umsatz</p>
+
+    <div class="fix-category fade-target">
+      <div class="fix-cat-title">Profil-Optimierung</div>
+      <div class="fix-items">
+        <div class="fix-item">
+          <div class="fix-item-title">Bio sofort korrigieren</div>
+          <div class="fix-item-desc">Oeffnungszeiten aktualisieren: Mo-Di & Fr-Sa 12-21:30, Mi-Do & So geschlossen. Adresse: Chausseestrasse 2, Mitte.</div>
+        </div>
+        <div class="fix-item">
+          <div class="fix-item-title">Bestell-Link einbauen</div>
+          <div class="fix-item-desc">Linktree mit Wolt, Lieferando, Uber Eats. Jeden Klick messbar machen.</div>
+        </div>
+        <div class="fix-item">
+          <div class="fix-item-title">Following aufraeumen</div>
+          <div class="fix-item-desc">Von 358 auf unter 150 reduzieren. Ratio verbessern.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fix-category fade-target">
+      <div class="fix-cat-title">3 Pinned Posts</div>
+      <div class="fix-items">
+        <div class="fix-item">
+          <div class="fix-item-title">Pin 1: Dumpling-Making Reel</div>
+          <div class="fix-item-desc">Handfalten, Dampf, Brutzeln. 15 Sekunden ASMR-Food-Content mit Trending Audio.</div>
+        </div>
+        <div class="fix-item">
+          <div class="fix-item-title">Pin 2: 8 Fuellungen Carousel</div>
+          <div class="fix-item-desc">Alle 8 Sorten mit Beschreibung und Bild. Gaeste sollen sich vorab entscheiden.</div>
+        </div>
+        <div class="fix-item">
+          <div class="fix-item-title">Pin 3: Social Proof Carousel</div>
+          <div class="fix-item-desc">Google 4.4 Sterne, TripAdvisor #107, Top10Berlin, visitBerlin. Vertrauen auf einen Blick.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fix-category fade-target">
+      <div class="fix-cat-title">Reels-Strategie: 3 pro Woche</div>
+      <div class="fix-items">
+        <div class="fix-item">
+          <div class="fix-item-title">Serie 1: Dumpling Kitchen</div>
+          <div class="fix-item-desc">Handfalten-Close-Ups, Dampf-Shots, Pfannen-Sizzle. Reines Food-ASMR mit Suchtfaktor.</div>
+        </div>
+        <div class="fix-item">
+          <div class="fix-item-title">Serie 2: Bio & Ehrlich</div>
+          <div class="fix-item-desc">Origin-Stories der Bio-Zutaten, Nepal-Geschichte der Gruender, Nachhaltigkeit.</div>
+        </div>
+        <div class="fix-item">
+          <div class="fix-item-title">Serie 3: 8 Fuellungen Challenge</div>
+          <div class="fix-item-desc">Ein Reel pro Fuellung, rotierend. Community-Voting: Welche ist dein Favorit?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fix-category fade-target">
+      <div class="fix-cat-title">Lokale Positionierung</div>
+      <div class="fix-items">
+        <div class="fix-item">
+          <div class="fix-item-title">Mitte-Positionierung</div>
+          <div class="fix-item-desc">Hashtags: #berlinmitte #berlineats #veganberlin #naturkundemuseum #chausseestrasse #organicfood</div>
+        </div>
+        <div class="fix-item">
+          <div class="fix-item-title">Delivery-Content</div>
+          <div class="fix-item-desc">Unboxing-Reels mit oeko-freundlicher Verpackung. Nachhaltigkeits-USP staerken und Bestellungen treiben.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA SECTION ===== -->
+  <section class="cta-section fade-target">
+    <h2 class="cta-title">Bereit? Lass uns dein Profil umbauen.</h2>
+    <p class="cta-sub">Buche jetzt dein kostenloses Strategiegespraech und wir setzen das in 7 Tagen um.</p>
+    <a href="https://saple.de/booking" class="cta-btn">Jetzt Termin buchen</a>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <a href="https://www.saple.de" style="display:inline-block;">
+      <img src="./assets/saple-logo-white.svg" alt="Saple" class="footer-logo-img footer-logo-dark">
+      <img src="./assets/saple-logo-black.svg" alt="Saple" class="footer-logo-img footer-logo-light">
+    </a>
+    <div class="footer-note">Erstellt von Saple — Marketing Agentur Berlin // Vertraulich</div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ========== THEME TOGGLE ==========
+      const html = document.documentElement;
+      const themeToggle = document.getElementById('themeToggle');
+      const themeToggleMobile = document.getElementById('themeToggleMobile');
+      const iconSun = document.getElementById('iconSun');
+      const iconMoon = document.getElementById('iconMoon');
+      const iconSunMobile = document.getElementById('iconSunMobile');
+      const iconMoonMobile = document.getElementById('iconMoonMobile');
+
+      function setTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          html.classList.add('dark');
+          html.classList.remove('light');
+        } else {
+          html.classList.add('light');
+          html.classList.remove('dark');
+        }
+        updateThemeIcons(theme);
+        try { localStorage.setItem('saple-theme', theme); } catch(e) {}
+      }
+
+      function updateThemeIcons(theme) {
+        if (theme === 'dark') {
+          iconSun.style.display = 'block';
+          iconMoon.style.display = 'none';
+          if (iconSunMobile) iconSunMobile.style.display = 'block';
+          if (iconMoonMobile) iconMoonMobile.style.display = 'none';
+        } else {
+          iconSun.style.display = 'none';
+          iconMoon.style.display = 'block';
+          if (iconSunMobile) iconSunMobile.style.display = 'none';
+          if (iconMoonMobile) iconMoonMobile.style.display = 'block';
+        }
+      }
+
+      function toggleTheme() {
+        var current = html.getAttribute('data-theme') || 'light';
+        setTheme(current === 'light' ? 'dark' : 'light');
+      }
+
+      // Init theme from localStorage
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('saple-theme'); } catch(e) {}
+      setTheme(savedTheme || 'light');
+
+      themeToggle.addEventListener('click', toggleTheme);
+      if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+
+      // ========== LANGUAGE TOGGLE ==========
+      var currentLang = 'DE';
+      var langToggle = document.getElementById('langToggle');
+      var langToggleMobile = document.getElementById('langToggleMobile');
+      var langLabel = document.getElementById('langLabel');
+      var langLabelMobile = document.getElementById('langLabelMobile');
+
+      function toggleLang() {
+        currentLang = currentLang === 'DE' ? 'EN' : 'DE';
+        langLabel.textContent = currentLang;
+        if (langLabelMobile) langLabelMobile.textContent = currentLang;
+      }
+
+      langToggle.addEventListener('click', toggleLang);
+      if (langToggleMobile) langToggleMobile.addEventListener('click', toggleLang);
+
+      // ========== MOBILE MENU ==========
+      var hamburgerBtn = document.getElementById('hamburgerBtn');
+      var mobileOverlay = document.getElementById('mobileOverlay');
+      var mobileClose = document.getElementById('mobileClose');
+
+      hamburgerBtn.addEventListener('click', function() {
+        mobileOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+
+      mobileClose.addEventListener('click', function() {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+
+      // Close on link click
+      mobileOverlay.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          mobileOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // ========== SCROLL ANIMATIONS ==========
+      var fadeTargets = document.querySelectorAll('.fade-target');
+
+      var fadeObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      fadeTargets.forEach(function(target) {
+        fadeObserver.observe(target);
+      });
+
+      // ========== SCORE BAR ANIMATIONS ==========
+      var scoreSection = document.getElementById('scoreSection');
+      var scoreBarsAnimated = false;
+
+      var scoreObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !scoreBarsAnimated) {
+            scoreBarsAnimated = true;
+            var fills = entry.target.querySelectorAll('.score-fill');
+            fills.forEach(function(fill, i) {
+              setTimeout(function() {
+                fill.style.width = fill.getAttribute('data-width');
+              }, i * 100);
+            });
+            scoreObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      if (scoreSection) scoreObserver.observe(scoreSection);
+
+    })();
+  </script>
+</body>
+</html>
